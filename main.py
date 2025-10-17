@@ -8,7 +8,7 @@ import msvcrt
 import time
 
 # =====================================================
-#  KurvScript Interpreter — m2.35
+#  Mercury Interpreter — m2.35
 # =====================================================
 
 # ---------------- Ignoring Warnings ---------------- #
@@ -167,7 +167,6 @@ def handle_calc(node, env):
 
 @tag("wait")
 def handle_wait(node, env):
-    """Wait for a number of seconds."""
     seconds = float(node.attrib.get("seconds", 1))
     print(f"[waiting {seconds} sec]")
     time.sleep(seconds)
@@ -211,17 +210,25 @@ def load_plugins(directory="plugins"):
 # ================= Command-Line Interface ================= #
 def main():
     os.system('cls' if os.name == 'nt' else 'clear')
-    print("=== KurvScript Interpreter (Modular Safe Mode) ===")
+    print("=== Mercury Interpreter (Safe Mode) ===")
 
     load_plugins()
 
     while True:
-        path = input("Enter path to .ks file (example.ks): ").strip()
+        path = input("Enter path to .mc file (example.mc): ").strip()
         if not path:
             print("No file provided. Exiting.")
             return
+
+        if not path.lower().endswith(".mc"):
+            path += ".mc"
+
         if not os.path.exists(path):
             print("File not found:", path)
+            continue
+
+        if not path.lower().endswith(".mc"):
+            print("Invalid file type.")
             continue
 
         try:
@@ -243,7 +250,7 @@ def main():
             sys.exit(0)
         else:
             os.system('cls')
-            print("=== KurvScript Interpreter (Modular Safe Mode)===")
+            print("=== Mercury Interpreter (Safe Mode) ===")
 
 if __name__ == "__main__":
     main()
