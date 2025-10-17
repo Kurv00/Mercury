@@ -1,5 +1,2 @@
 *.py linguist-language=Python
 *.mc linguist-language=Mercury
-
-docs/* linguist-documentation=true
-plugins/* linguist-language=Python
