@@ -172,7 +172,7 @@ def handle_calc(node, env):
 @tag("wait")
 def handle_wait(node, env):
     seconds = float(node.attrib.get("seconds", 1))
-    print(f"[waiting {seconds} sec]")
+    print(f"Waiting {seconds} second(s)...")
     time.sleep(seconds)
 
 
@@ -213,7 +213,7 @@ def load_plugins(directory="plugins"):
 # ================= CLI ================= #
 def main():
     os.system('cls' if os.name == 'nt' else 'clear')
-    print("=== Mercury Interpreter (Safe Mode) ===")
+    print("=== Mercury Interpreter ===")
 
     load_plugins()
 
@@ -253,7 +253,7 @@ def main():
             sys.exit(0)
         else:
             os.system('cls')
-            print("=== Mercury Interpreter (Safe Mode) ===")
+            print("=== Mercury Interpreter ===")
 
 
 if __name__ == "__main__":
