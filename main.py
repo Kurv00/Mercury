@@ -96,6 +96,11 @@ def render_text_with_env(text, env):
 def handle_print(node, env):
     print(render_text_with_env(node.text or "", env))
 
+@tag("rprint")
+def handle_reverse(node, env):
+    text = render_text_with_env(node.text or "", env)
+    print(text[::-1])
+
 @tag("var")
 def handle_var(node, env):
     name = node.attrib.get("name") or node.attrib.get("n")
