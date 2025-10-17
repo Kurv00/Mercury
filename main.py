@@ -8,10 +8,9 @@ import msvcrt
 import time
 
 # =====================================================
-#  Mercury Interpreter — m2.35
+#  Mercury Interpreter — m2.36 (October Patch 2025)
 # =====================================================
 
-# ---------------- Ignoring Warnings ---------------- #
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 warnings.filterwarnings("ignore", category=UserWarning)
 
@@ -57,23 +56,7 @@ def safe_eval(expr, env, lineno=None, context_tag=None):
         return None
 
 
-# ---------------- Var{} Block Parser ---------------- #
-def parse_var_block(text, env):
-    lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
-    for ln in lines:
-        if ln.startswith("//") or ln.startswith("#") or ln.startswith("::"):
-            continue
-        m = re.match(r'^([A-Za-z_][A-Za-z0-9_\-]*?)\s*:\s*(.+?);?$', ln)
-        if not m:
-            continue
-        key, val_expr = m.group(1), m.group(2).strip()
-        try:
-            val = safe_eval(val_expr, env)
-        except Exception:
-            val = val_expr
-        env[key] = val
-
-# ================= Tag Registry System ================= #
+# ================= Tag System ================= #
 TAG_HANDLERS = {}
 
 def tag(name):
@@ -107,24 +90,37 @@ def render_text_with_env(text, env):
         return str(env.get(key, "{" + key + "}"))
     return re.sub(r'\{([A-Za-z_][A-Za-z0-9_\-]*)\}', repl, text)
 
-# =================Core Tag Handlers ================= #
+
+# ================= Core Tag Handlers ================= #
 @tag("print")
 def handle_print(node, env):
-    print(render_text_with_env(node.text or "", env), end="")
-
-@tag("printnl")
-def handle_printnl(node, env):
     print(render_text_with_env(node.text or "", env))
 
 @tag("var")
 def handle_var(node, env):
     name = node.attrib.get("name") or node.attrib.get("n")
-    expr = node.attrib.get("value") or (node.text or "").strip()
-    if name:
+    value = node.attrib.get("value")
+    text_content = (node.text or "").strip()
+
+    if name and value:
         try:
-            env[name] = safe_eval(expr, env, node.sourceline, "var")
+            env[name] = safe_eval(value, env, node.sourceline, "var")
         except Exception:
-            env[name] = expr
+            env[name] = value
+    elif not name and text_content:
+        lines = [ln.strip() for ln in text_content.splitlines() if ln.strip()]
+        for ln in lines:
+            if ln.startswith("//") or ln.startswith("#") or ln.startswith("::"):
+                continue
+            m = re.match(r'^([A-Za-z_][A-Za-z0-9_\-]*)\s*:\s*(.+?);?$', ln)
+            if not m:
+                continue
+            key, val_expr = m.group(1), m.group(2).strip()
+            try:
+                env[key] = safe_eval(val_expr, env)
+            except Exception:
+                env[key] = val_expr
+
 
 @tag("if")
 def handle_if(node, env):
@@ -135,6 +131,7 @@ def handle_if(node, env):
                 exec_node(child, env)
     except Exception:
         pass
+
 
 @tag("for")
 def handle_for(node, env):
@@ -154,6 +151,7 @@ def handle_for(node, env):
     except Exception:
         pass
 
+
 @tag("calc")
 def handle_calc(node, env):
     expr = (node.text or "").strip()
@@ -165,11 +163,13 @@ def handle_calc(node, env):
     except Exception:
         pass
 
+
 @tag("wait")
 def handle_wait(node, env):
     seconds = float(node.attrib.get("seconds", 1))
     print(f"[waiting {seconds} sec]")
     time.sleep(seconds)
+
 
 @tag("input")
 def handle_input(node, env):
@@ -178,14 +178,10 @@ def handle_input(node, env):
     if var_name:
         env[var_name] = input(prompt)
 
+
 # ================= Script Runner ================= #
 def run_ks(source_text, filename="<string>"):
     env = {}
-
-    var_blocks = re.findall(r'var\s*\{(.*?)\}', source_text, re.DOTALL)
-    for vb in var_blocks:
-        parse_var_block(vb, env)
-        source_text = source_text.replace(f"var{{{vb}}}", "")
 
     wrapped = "<root>\n" + source_text + "\n</root>"
     try:
@@ -198,6 +194,7 @@ def run_ks(source_text, filename="<string>"):
     for child in root:
         exec_node(child, env)
 
+
 # ================= Plugin Loader ================= #
 def load_plugins(directory="plugins"):
     if not os.path.exists(directory):
@@ -207,7 +204,8 @@ def load_plugins(directory="plugins"):
         if file.endswith(".py"):
             __import__(file[:-3])
 
-# ================= Command-Line Interface ================= #
+
+# ================= CLI ================= #
 def main():
     os.system('cls' if os.name == 'nt' else 'clear')
     print("=== Mercury Interpreter (Safe Mode) ===")
@@ -217,14 +215,14 @@ def main():
     while True:
         path = input("Enter path to .mc file (example.mc): ").strip()
         if not path:
-            print("No file provided. Exiting.")
+            print("No file provided. Exiting...")
             return
 
         if not path.lower().endswith(".mc"):
             path += ".mc"
 
         if not os.path.exists(path):
-            print("File not found:", path)
+            print("File not found.")
             continue
 
         if not path.lower().endswith(".mc"):
@@ -242,15 +240,16 @@ def main():
         run_ks(src, filename=path)
         print(f"\n--- Done ---")
 
-        print("\nPress 'K' to exit, any other key to run a new file...")
+        print("\nPress 'M' to exit, any other key to run a new file...")
         key = msvcrt.getch()
-        if key.lower() == b'k':
+        if key.lower() == b'm':
             print("Exiting...")
             time.sleep(1)
             sys.exit(0)
         else:
             os.system('cls')
             print("=== Mercury Interpreter (Safe Mode) ===")
+
 
 if __name__ == "__main__":
     main()
