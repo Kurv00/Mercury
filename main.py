@@ -8,7 +8,7 @@ import msvcrt
 import time
 
 # =====================================================
-#  Mercury Interpreter — m2.36 (October Patch 2025)
+#  Mercury Interpreter — m2.38 (October Patch 2025)
 # =====================================================
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
