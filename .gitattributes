@@ -1,2 +1,7 @@
 *.py linguist-language=Python
 *.mc linguist-language=Mercury
+*.pyz linguist-language=Python
+*.pkg linguist-language=Python
+*.exe linguist-language=Python
+*.toc linguist-language=Python
+*.html linguist-language=Python
