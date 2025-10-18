@@ -5,13 +5,13 @@
 
 # Mercury
 
-WARNING: The main.exe file does not work as intended as of 18 Oct 2025. A fix will be rolled out soon (19/20 October 2025). Issue: When you run a '.mc' file,  `handle_if`  is tries to access `node.sourceline`, but `xml.etree.ElementTree.Element` objects **don’t have a `sourceline` attribute** by default.
+WARNING: The main.exe file does not work as intended as of 18 Oct 2025. A fix will be rolled out soon (19/20 October 2025). Issue: When you run a '.mc' file,  `handle_if`  tries to access `node.sourceline`, but `xml.etree.ElementTree.Element` objects **don’t have a `sourceline` attribute** by default.
 
 ### A minimal, XML-based scripting language built with Python
 ![Python](https://img.shields.io/badge/Made%20with-Python-blue?style=for-the-badge&logo=python)
 ![Version](https://img.shields.io/badge/Version-2.38-red?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Stable-success?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Unstable-red?style=for-the-badge)
 </div>
 
 ## 🌌 Overview
