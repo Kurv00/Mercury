@@ -2,7 +2,7 @@
 x: 10;
 y: 3;
 msg: "This is Mercury!";
-msg2: "yrucreM"
+msg2: "yrucreM";
 </var>
 
 <print>{msg}</print>

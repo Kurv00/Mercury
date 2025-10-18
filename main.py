@@ -17,15 +17,21 @@ warnings.filterwarnings("ignore", category=UserWarning)
 
 # ---------------- Safe Evaluator ---------------- #
 class SafeEvalVisitor(ast.NodeVisitor):
-    SAFE_NODES = (
-        ast.Expression, ast.Constant,
-        ast.BinOp, ast.UnaryOp,
-        ast.BoolOp, ast.Compare, ast.Name, ast.Load, ast.Call,
-        ast.List, ast.Tuple, ast.Dict, ast.Subscript,
-        ast.Add, ast.Sub, ast.Mult, ast.Div, ast.Mod, ast.Pow, ast.FloorDiv,
-        ast.USub, ast.UAdd, ast.And, ast.Or, ast.Eq, ast.NotEq,
-        ast.Lt, ast.LtE, ast.Gt, ast.GtE, ast.In, ast.NotIn, ast.Not
-    )
+    """
+    Safe evaluator for Mercury expressions.
+    Compatible with EXE builds (PyInstaller/cx_Freeze) by dynamically resolving AST nodes.
+    """
+
+    SAFE_NODE_NAMES = [
+        "Expression", "Constant", "Name", "Load",
+        "BinOp", "UnaryOp", "BoolOp", "Compare", "Call",
+        "List", "Tuple", "Dict", "Subscript",
+        "Add", "Sub", "Mult", "Div", "Mod", "Pow", "FloorDiv",
+        "USub", "UAdd", "And", "Or", "Eq", "NotEq",
+        "Lt", "LtE", "Gt", "GtE", "In", "NotIn", "Not"
+    ]
+
+    SAFE_NODES = tuple(getattr(ast, name, None) for name in SAFE_NODE_NAMES if getattr(ast, name, None))
 
     SAFE_FUNCS = {
         "abs": abs, "min": min, "max": max, "sum": sum,
@@ -43,7 +49,14 @@ class SafeEvalVisitor(ast.NodeVisitor):
 
 
 def safe_eval(expr, env, lineno=None, context_tag=None):
+    """
+    Securely evaluate expressions inside Mercury tags.
+    Prevents access to unsafe Python features.
+    """
     expr = expr.strip()
+    if not expr:
+        return None
+
     try:
         tree = ast.parse(expr, mode="eval")
         SafeEvalVisitor(env).visit(tree)
@@ -131,11 +144,12 @@ def handle_var(node, env):
 def handle_if(node, env):
     cond = node.attrib.get("condition") or (node.text or "").strip()
     try:
-        if safe_eval(cond, env, node.sourceline, "if"):
+        result = safe_eval(cond, env, node.sourceline, "if")
+        if result:
             for child in node:
                 exec_node(child, env)
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"[if] Evaluation error at line {node.sourceline}: {e}")
 
 
 @tag("for")
