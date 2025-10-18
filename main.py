@@ -89,7 +89,8 @@ def exec_node(node, env):
         text = (node.text or "").strip()
         if node.attrib.get("value"):
             try:
-                v = safe_eval(node.attrib["value"], env, node.sourceline, tag_name)
+                lineno = getattr(node, 'sourceline', 'unknown')
+                v = safe_eval(node.attrib["value"], env, lineno, tag_name)
             except Exception:
                 v = node.attrib["value"]
             print(v)
@@ -204,8 +205,9 @@ def run_ks(source_text, filename="<string>"):
 
     wrapped = "<root>\n" + source_text + "\n</root>"
     try:
-        parser = ET.XMLParser(target=ET.TreeBuilder())
-        root = ET.fromstring(wrapped, parser=parser)
+        parser = ET.XMLParser()
+        tree = ET.ElementTree(ET.fromstring(wrapped, parser=parser))
+        root = tree.getroot()
     except ET.ParseError as e:
         print("[parse error]:", e)
         return
