@@ -110,6 +110,10 @@ def handle_for(node, env):
     else:
         print(f"[warn @ for:{node.sourceline}] Invalid range expression: {range_expr}")
         return
+    
+    for value in iterable:
+        env[var] = value
+        execute_children(node, env)
 
 @tag("calc")
 def handle_calc(node, env):
