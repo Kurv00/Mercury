@@ -15,17 +15,17 @@
 
 <div class="node">
   <a name="console.py"></a>
-  <a target="code" href="///C:/Users/Kurv/Documents/Mercury/console/console.py" type="text/plain"><tt>console.py</tt></a>
+  <a target="code" href="///C:/Users/Kurv/Documents/Mercury/console.py" type="text/plain"><tt>console.py</tt></a>
 <span class="moduletype">Script</span>  <div class="import">
 imports:
-    <a href="#'core.tag_handler'">'core.tag_handler'</a>
- &#8226;   <a href="#_collections_abc">_collections_abc</a>
+    <a href="#_collections_abc">_collections_abc</a>
  &#8226;   <a href="#_weakrefset">_weakrefset</a>
  &#8226;   <a href="#abc">abc</a>
  &#8226;   <a href="#codecs">codecs</a>
  &#8226;   <a href="#collections">collections</a>
  &#8226;   <a href="#copyreg">copyreg</a>
- &#8226;   <a href="#core">core</a>
+ &#8226;   <a href="#core.runtime">core.runtime</a>
+ &#8226;   <a href="#core.tag_handler">core.tag_handler</a>
  &#8226;   <a href="#encodings">encodings</a>
  &#8226;   <a href="#encodings.aliases">encodings.aliases</a>
  &#8226;   <a href="#encodings.ascii">encodings.ascii</a>
@@ -213,17 +213,6 @@ imported by:
  &#8226;   <a href="#traceback">traceback</a>
  &#8226;   <a href="#tracemalloc">tracemalloc</a>
  &#8226;   <a href="#typing">typing</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="'core.tag_handler'"></a>
-  <a target="code" href="" type="text/plain"><tt>'core.tag_handler'</tt></a>
-<span class="moduletype">MissingModule</span>  <div class="import">
-imported by:
-    <a href="#console.py">console.py</a>
 
   </div>
 
@@ -1595,8 +1584,44 @@ imported by:
 
 <div class="node">
   <a name="core"></a>
-  <a target="code" href="" type="text/plain"><tt>core</tt></a>
-<span class="moduletype">MissingModule</span>  <div class="import">
+  <a target="code" href="///C:/Users/Kurv/Documents/Mercury/core/__init__.py" type="text/plain"><tt>core</tt></a>
+<span class="moduletype">Package</span>  <div class="import">
+imported by:
+    <a href="#core.runtime">core.runtime</a>
+ &#8226;   <a href="#core.tag_handler">core.tag_handler</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="core.runtime"></a>
+  <a target="code" href="///C:/Users/Kurv/Documents/Mercury/core/runtime.py" type="text/plain"><tt>core.runtime</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#core">core</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#console.py">console.py</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="core.tag_handler"></a>
+  <a target="code" href="///C:/Users/Kurv/Documents/Mercury/core/tag_handler.py" type="text/plain"><tt>core.tag_handler</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#core">core</a>
+ &#8226;   <a href="#tags">tags</a>
+ &#8226;   <a href="#tags.console_log">tags.console_log</a>
+ &#8226;   <a href="#tags.declaration">tags.declaration</a>
+
+  </div>
+  <div class="import">
 imported by:
     <a href="#console.py">console.py</a>
 
@@ -6413,6 +6438,7 @@ imported by:
  &#8226;   <a href="#sre_constants">sre_constants</a>
  &#8226;   <a href="#sre_parse">sre_parse</a>
  &#8226;   <a href="#string">string</a>
+ &#8226;   <a href="#tags.console_log">tags.console_log</a>
  &#8226;   <a href="#tarfile">tarfile</a>
  &#8226;   <a href="#textwrap">textwrap</a>
  &#8226;   <a href="#tokenize">tokenize</a>
@@ -6919,6 +6945,60 @@ imported by:
  &#8226;   <a href="#weakref">weakref</a>
  &#8226;   <a href="#zipfile">zipfile</a>
  &#8226;   <a href="#zipfile._path">zipfile._path</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="tags"></a>
+  <a target="code" href="///C:/Users/Kurv/Documents/Mercury/tags/__init__.py" type="text/plain"><tt>tags</tt></a>
+<span class="moduletype">Package</span>  <div class="import">
+imports:
+    <a href="#tags.console_log">tags.console_log</a>
+ &#8226;   <a href="#tags.declaration">tags.declaration</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#core.tag_handler">core.tag_handler</a>
+ &#8226;   <a href="#tags.console_log">tags.console_log</a>
+ &#8226;   <a href="#tags.declaration">tags.declaration</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="tags.console_log"></a>
+  <a target="code" href="///C:/Users/Kurv/Documents/Mercury/tags/console_log.py" type="text/plain"><tt>tags.console_log</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#re">re</a>
+ &#8226;   <a href="#tags">tags</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#core.tag_handler">core.tag_handler</a>
+ &#8226;   <a href="#tags">tags</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="tags.declaration"></a>
+  <a target="code" href="///C:/Users/Kurv/Documents/Mercury/tags/declaration.py" type="text/plain"><tt>tags.declaration</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#tags">tags</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#core.tag_handler">core.tag_handler</a>
+ &#8226;   <a href="#tags">tags</a>
 
   </div>
 
