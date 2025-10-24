@@ -1,4 +1,4 @@
-#  GitHub Linguist Configuration
+# GitHub Linguist Configuration
 * linguist-detectable=false
 
 *.py linguist-language=Python
@@ -7,5 +7,5 @@
 *.mc linguist-language=Mercury
 *.mc linguist-detectable=true
 
-examples/* linguist-language=Mercury
 examples/* linguist-detectable=true
+examples/* linguist-language=Mercury
