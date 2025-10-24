@@ -1,8 +1,3 @@
-
-
-
-  
-
 # Mercury
 
 ### A minimal, XML-based scripting language built with Python
