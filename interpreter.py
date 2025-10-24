@@ -1,18 +1,28 @@
+import os
+import platform
 from colorama import Fore, Style, init
 init(autoreset=True)
-
 variables = {}
+
+def clear_screen():
+    if platform.system() == "Windows":
+        os.system("cls")
+    else:
+        os.system("clear")
 
 def run_line(line):
     line = line.strip()
     if not line:
         return
-    if line == "show vars;":
+    if line == "show_vars;":
         print(f"{Fore.CYAN}Variables: {variables}")
         return
     if line == "exit;":
         print(f"{Fore.YELLOW}Exiting...")
         exit()
+    if line == "clear;":
+        clear_screen()
+        return
     if ':' not in line:
         print(f"{Fore.RED}Syntax Error:{Style.RESET_ALL} Unknown or invalid command --> '{line}'")
         return
