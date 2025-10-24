@@ -11,7 +11,6 @@ def main():
             return
         run_script(script_path)
     else:
-        print(f"=== Mercury CLI ({Current_Version}) ===")
         while True:
             try:
                 line = input(">>> ")

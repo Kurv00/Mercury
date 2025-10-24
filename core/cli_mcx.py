@@ -1,6 +1,8 @@
 import os
 import time
 from colorama import Fore, Style, init
+
+Current_Version = 3.42
 init(autoreset=True)
 variables = {}
 
@@ -10,13 +12,13 @@ def clear():
     elif os.name == 'posix':
          _ = os.system('clear')
     else:
-        print(f"{Fore.RED}Error: Unsupported Operating System for '@clear' command.{Style.RESET_ALL}")
+        print(f"{Fore.RED}Unsupported Operating System for '@clear' command.{Style.RESET_ALL}")
 
 def run_line(line):
     line = line.strip()
     if not line:
         return
-    if line == "@show_vars":
+    if line == "@showvar":
         print(f"{Fore.CYAN}Variables: {variables}")
         return
     if line == "@exit":
@@ -25,6 +27,7 @@ def run_line(line):
         exit()
     if line == "@clear":
         clear()
+        print(f"=== Mercury CLI ({Current_Version}) ===")
         return
     if ':' not in line:
         print(f"{Fore.RED}Syntax Error:{Style.RESET_ALL} Unknown or invalid command --> '{line}'")

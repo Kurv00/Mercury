@@ -1,0 +1,2 @@
+pyinstaller --clean --onefile --console --upx-dir "C:\Program Files\UPX x86-64" main.py
+pip install colorama
