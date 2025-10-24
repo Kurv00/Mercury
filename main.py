@@ -1,5 +1,7 @@
 import sys
 from core.cli_mcx import run_line, run_script
+Current_Version = 3.42
+# Last Edited: October 24, 2025 (6:24 PM) by Pippo and MiKASA
 
 def main():
     if len(sys.argv) > 1:
@@ -9,7 +11,7 @@ def main():
             return
         run_script(script_path)
     else:
-        print("=== Mercury CLI ===")
+        print(f"=== Mercury CLI ({Current_Version}) ===")
         while True:
             try:
                 line = input(">>> ")
