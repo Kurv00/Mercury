@@ -1,6 +1,3 @@
-# =====================================================
-#  Mercury Interpreter — m2.44 (Feature Update)
-# =====================================================
 import random
 import sys
 import os
@@ -10,11 +7,12 @@ import ast
 import warnings
 import msvcrt
 import time
+# Mercury — m3.42 (Feature Update)
 
 # ================= Ignoring Warnings ================= #
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 warnings.filterwarnings("ignore", category=UserWarning)
-# ===================================================== #
+
 
 # ================= Safe Evaluator ================= #
 class SafeEvalVisitor(ast.NodeVisitor):
