@@ -1,5 +1,5 @@
 import sys
-from interpreter import run_line, run_script
+from core.cli_mcx import run_line, run_script
 
 def main():
     if len(sys.argv) > 1:
