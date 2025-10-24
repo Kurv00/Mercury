@@ -7,8 +7,10 @@ variables = {}
 def clear():
     if os.name == 'nt':
          _ = os.system('cls')
-    else:
+    elif os.name == 'posix':
          _ = os.system('clear')
+    else:
+        print(f"{Fore.RED}Error: Unsupported Operating System for '@clear' command.{Style.RESET_ALL}")
 
 def run_line(line):
     line = line.strip()
